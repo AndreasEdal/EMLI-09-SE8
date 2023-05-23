@@ -1,10 +1,21 @@
 #!/bin/bash
 
-while [ true ]
+# Must be run using 'bash' and not 'sh'
+
+IFS='/'
+hostname="192.168.10.222"
+
+mosquitto_sub -h localhost -t "remote/lights" -p 1883 -u "abba" -P "1234" | while read -r payload
 do
-	mosquitto_sub -h localhost -t "button/pressed" -p 1883 -u "abba" -P "1234" | while read -r payload
-    	do
-        	# Here is the callback to execute whenever you receive a message:
-        	echo $payload # Change topic to lights topic and extract message data. Send the request to the remote to activate light
-    	done
+	read -a segments <<< $payload
+	# Here is the callback to execute whenever you receive a message:
+
+	# Segment message into color and state
+	color=${segments[0]}
+	state=${segments[1]}
+	echo "Color: ${color}"
+	echo "State: ${state}"
+
+	# Send an HTTP request to the remote to activate the right LED
+	curl "${hostname}/led/${color}/${state}"
 done
