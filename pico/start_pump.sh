@@ -1,7 +1,7 @@
 #!/bin/bash
 
 server=localhost
-topic=alarm/isOn
+topic=state/alarm/isOn
 port=1883
 username=abba
 password=1234

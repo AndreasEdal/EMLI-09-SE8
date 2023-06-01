@@ -3,7 +3,7 @@
 server=localhost
 topic=remote/button/pressed
 port=1883
-delay=2
+delay=0.5
 username=abba
 password=1234
 
