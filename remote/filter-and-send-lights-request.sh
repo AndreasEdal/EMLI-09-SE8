@@ -8,7 +8,6 @@ hostname="192.168.10.222"
 mosquitto_sub -h localhost -t "remote/lights" -p 1883 -u "abba" -P "1234" | while read -r payload
 do
 	read -a segments <<< $payload
-	# Here is the callback to execute whenever you receive a message:
 
 	# Segment message into color and state
 	color=${segments[0]}
