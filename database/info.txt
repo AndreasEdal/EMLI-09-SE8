@@ -1,4 +1,8 @@
+#Telegraf
 database_name: emli_exam_abba
 user: telegraf 
 password: 1234
 
+#grafana 
+user: admin
+password: Ab!ba

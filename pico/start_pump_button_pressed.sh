@@ -1,4 +1,8 @@
 #!/bin/bash
+
+DIR_BIN=`dirname $(readlink -f $0)`
+cd $DIR_BIN
+
 server=localhost
 topic=remote/button/pressed
 port=1883
@@ -11,7 +15,7 @@ while [ true ]
 do
 	mosquitto_sub -h $server -t $topic -p $port -u $username -P $password | while read -r payload
     	do
+		sh ./start_pump.sh
 		echo "Button is pressed on the remote" # Here is the callback to execute whenever you receive a message:
-        	echo 'p' > /dev/pico01
     	done
 done
